@@ -37,7 +37,7 @@ To run it locally, you'll need the following:
 To deploy this to your webtask sandbox, you'll need to run:
 
     $ NODE_ENV=production npm run build
-    $ wt create dist/custom-social-connections.js --name custom-social-connections --no-parse --no-merge
+    $ wt create dist/custom-social-connections.js --name custom-social-connections
 
 Note: Click [here](https://webtask.io/) for more information about how to setup webtasks.
 

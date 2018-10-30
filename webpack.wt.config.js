@@ -3,6 +3,7 @@ var Webpack = require('webpack');
 var _       = require('lodash');
 var pkg     = require('./webtask.json');
 var StringReplacePlugin = require("string-replace-webpack-plugin");
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 var LIST_MODULES_URL = 'https://auth0-extensions.us.webtask.io/list_modules?key=eyJhbGciOiJIUzI1NiIsImtpZCI6InVzLTMifQ.eyJqdGkiOiI2MmE2MmEzZTc2NDA0OGJjOWJjZjg4OTA0YTM2MTViNSIsImlhdCI6MTUwNDgwNDMxMSwiY2EiOltdLCJkZCI6MSwidGVuIjoiYXV0aDAtZXh0ZW5zaW9ucyJ9.f7oityW3pq30eDhOUCb218n8YllhV-6wBO1NYBKBGNI';
 
@@ -67,10 +68,15 @@ module.exports = Request.get(LIST_MODULES_URL, { json: true }).then(function (da
       new StringReplacePlugin(),
       new Webpack.optimize.DedupePlugin(),
       new Webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
-    })
+        compress: {
+          warnings: false
+        }
+      }),
+      new CopyWebpackPlugin([{
+        from: 'package.json',
+        to: 'package.json',
+        toType: 'file'
+      }])
     ],
     resolve: {
       modulesDirectories: ['node_modules'],
